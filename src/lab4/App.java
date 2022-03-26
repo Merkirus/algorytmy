@@ -6,6 +6,7 @@ public class App {
 
     public static void main(String[] args) throws FullStackException, EmptyStackException {
 
+        Nawiasy nawiasy = new Nawiasy();
         boolean isRunning = true;
 
         while (isRunning) {
@@ -21,8 +22,8 @@ public class App {
                 case "1" -> {
                     System.out.println("Proszę wrowadzić tekst");
                     wybor = sc.nextLine();
-                    if (Nawiasy.nawiasyZrownowazone(wybor)) {
-                        System.out.println("Wyrażenie poprawne zrównoważone");
+                    if (nawiasy.nawiasyZrownowazone(wybor)) {
+                        System.out.println("Wyrażenie poprawnie zrównoważone");
                     } else {
                         System.out.println("Wyrażenie nie jest zrównoważone");
                     }
