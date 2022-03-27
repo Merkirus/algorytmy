@@ -38,7 +38,6 @@ public class ArrayStack<T> implements IStack<T> {
 		if(isFull())
 			throw new FullStackException();
 		array[topIndex++]=elem;
-		
 	}
 
 	@Override

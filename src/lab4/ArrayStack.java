@@ -1,7 +1,6 @@
 package lab4;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class ArrayStack<T> implements IStack<T> {
 

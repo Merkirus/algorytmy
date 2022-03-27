@@ -6,7 +6,7 @@ public interface IStack<T>{
 	  T pop() throws EmptyStackException;
 	  void push(T elem) throws FullStackException;
 	  int size();  // zwraca liczb� element�w na stosie 
-	  // T top() throws EmptyStackException;
+	  T top() throws EmptyStackException;
 	     // zwraca element ze szczutu stosu bez usuwania go
 }
 

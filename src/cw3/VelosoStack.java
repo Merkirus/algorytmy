@@ -72,7 +72,14 @@ public class VelosoStack<T> implements IStack<T> {
         return topIndex;
     }
 
-    public void top() throws EmptyStackException {
+    @Override
+    public T top() throws EmptyStackException {
+        if(isEmpty())
+            throw new EmptyStackException();
+        return array[topIndex-1];
+    }
+
+    public void myTop() {
         caret = topIndex;
     }
 }
