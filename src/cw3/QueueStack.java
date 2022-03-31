@@ -26,6 +26,8 @@ public class QueueStack<T> implements IQueue<T> {
         return arrayStack2.isFull();
     }
 
+    //TODO dopiero gdy stack2.isEmpty to przerzucamy ze stack1, wiecej miejsca
+    //Ale wszystko bo inaczej sie miesza
     @Override
     public T dequeue() throws EmptyStackException {
         if (arrayStack2.isEmpty()) throw new EmptyStackException();

@@ -33,7 +33,8 @@ public class RPN {
                 stack.push(result);
             }
             case "/" -> {
-                result = (double)stack.pop() / (double)stack.pop();
+                double value = (double)stack.pop();
+                result = (double)stack.pop() / value;
                 stack.push(result);
             }
             case "+" -> {
@@ -41,7 +42,8 @@ public class RPN {
                 stack.push(result);
             }
             case "-" -> {
-                result = (double)stack.pop() - (double)stack.pop();
+                double value = (double)stack.pop();
+                result = (double)stack.pop() - value;
                 stack.push(result);
             }
         }

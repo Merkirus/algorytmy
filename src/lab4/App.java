@@ -1,10 +1,12 @@
 package lab4;
 
+import java.sql.Time;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class App {
 
-    public static void main(String[] args) throws FullStackException, EmptyStackException {
+    public static void main(String[] args) throws FullStackException, EmptyStackException, InterruptedException {
 
         Nawiasy nawiasy = new Nawiasy();
         boolean isRunning = true;
@@ -44,41 +46,21 @@ public class App {
                     }
                 }
                 case "3" -> {
-                    //TODO 1
                     System.out.println("Proszę wprowadzić tekst");
                     wybor = sc.nextLine();
                     ArrayStack<Character> arrayStack = new ArrayStack<>(wybor.length());
+                    ArrayStack<Character> oryginal = new ArrayStack<>(wybor.length());
                     char[] chars = new char[wybor.length()];
                     wybor.getChars(0, wybor.length(), chars, 0);
                     for (char c :  chars) arrayStack.push(c);
-                    ArrayStack<Character> temp = arrayStack.reverseStack();
-                    ArrayStack<Character> result = temp.reverseStack();
-                    char[] toPrint = new char[wybor.length()];
-                    for (int i=wybor.length()-1; !result.isEmpty(); i--) {
-                        toPrint[i] = result.pop();
-                    }
-                    System.out.println(toPrint);
-                    //TODO 2
-//                    System.out.println("Proszę wprowadzić tekst");
-//                    wybor = sc.nextLine();
-//                    ArrayStack<Character> arrayStack = new ArrayStack<>(wybor.length());
-//                    char[] chars = new char[wybor.length()];
-//                    wybor.getChars(0, wybor.length(), chars, 0);
-//                    for (char c :  chars) arrayStack.push(c);
-//
-//                    char[] temp = new char[arrayStack.size()];
-//                    ArrayStack<Character> result = arrayStack.reverseStack();
-//                    for (int i=0; !result.isEmpty(); i++) {
-//                        temp[i] = result.pop();
-//                    }
-//                    for (char c : temp) {
-//                        result.push(c);
-//                    }
-//                    char[] toPrint = new char[wybor.length()];
-//                    for (int i=wybor.length()-1; !result.isEmpty(); i--) {
-//                        toPrint[i] = result.pop();
-//                    }
-//                    System.out.println(toPrint);
+                    for (char c :  chars) oryginal.push(c);
+                    do {
+                        char temp = arrayStack.pop();
+                        arrayStack = arrayStack.reverseStack();
+                        arrayStack.push(temp);
+                        arrayStack = arrayStack.reverseStack();
+                    } while (!oryginal.equals(arrayStack));
+                    System.out.println(arrayStack);
                 }
                 case "4" -> isRunning = false;
                 default -> {

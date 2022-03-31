@@ -78,4 +78,12 @@ public class ArrayStack<T> implements IStack<T> {
 		ArrayStack<?> that = (ArrayStack<?>) o;
 		return topIndex == that.topIndex && Arrays.equals(array, that.array);
 	}
+
+	@Override
+	public String toString() {
+		return "ArrayStack{" +
+				"array=" + Arrays.toString(array) +
+				", topIndex=" + topIndex +
+				'}';
+	}
 }

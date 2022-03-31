@@ -18,19 +18,14 @@ public class ReverseArrayStack<T> implements IStack<T> {
         this(DEFAULT_CAPACITY);
     }
 
+    //TODO bez kopiowania, przechowywac jedna zmienna i zmieniac jej kolejnosc
+    // Dla 3 stosow 3 przerzucenia i done
     public void reverseStack() throws FullStackException, EmptyStackException {
         ReverseArrayStack<T> helpStack = new ReverseArrayStack<>(array.length);
         int tempIndex = this.topIndex;
         while (!this.isEmpty()) {
             helpStack.push(this.pop());
         }
-        this.topIndex = tempIndex;
-        copy(helpStack);
-    }
-
-    private void copy(ReverseArrayStack<T> arrayStack) {
-        this.array = arrayStack.array;
-        this.topIndex = arrayStack.topIndex;
     }
 
     @Override

@@ -23,13 +23,9 @@ public class VelosoStack<T> implements IStack<T> {
 
     public void down() {
         if (caret == 1) {
-            try {
-                top();
-                System.out.println("Bottom of the stack reached");
-                System.out.println("Moved to top");
-            } catch (EmptyStackException e) {
-                e.printStackTrace();
-            }
+            myTop();
+            System.out.println("Bottom of the stack reached");
+            System.out.println("Moved to the top");
         } else {
             caret--;
         }
