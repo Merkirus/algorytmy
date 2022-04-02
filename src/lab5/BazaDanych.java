@@ -1,6 +1,7 @@
 package lab5;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -99,8 +100,35 @@ public class BazaDanych {
             }
             case "5" -> {
                 System.out.println("Proszę podać numer indeksu samochodu");
-                temp = sc.nextLine();
-                modify(temp);
+                int index = Integer.parseInt(sc.nextLine());
+                System.out.println("Nr silnika (Enter - bez zmian)");
+                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                    lista.get(index).setNr_silnika(Integer.parseInt(temp));
+                }
+                System.out.println("Marka (Enter - bez zmian)");
+                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                    lista.get(index).setMarka(temp);
+                }
+                System.out.println("Typ (Enter - bez zmian)");
+                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                    lista.get(index).setTyp(temp);
+                }
+                System.out.println("Data produkcji (Enter - bez zmian)");
+                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                    lista.get(index).setData_produkcji(Integer.parseInt(temp));
+                }
+                System.out.println("Cena (Enter - bez zmian)");
+                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                    lista.get(index).setCena(Double.parseDouble(temp));
+                }
+                System.out.println("Kolor (Enter - bez zmian)");
+                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                    lista.get(index).setKolor(temp);
+                }
+                System.out.println("Czas składowania (Enter - bez zmian)");
+                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                    lista.get(index).setSkladowanie(Integer.parseInt(temp));
+                }
             }
             case "6" -> {
                 System.out.println("Proszę podać markę samochodu");
@@ -150,10 +178,7 @@ public class BazaDanych {
 
     private void remove(String stringIndex) {
         int index = Integer.parseInt(stringIndex);
-    }
-
-    private void modify(String stringIndex) {
-        int index = Integer.parseInt(stringIndex);
+        lista.remove(index);
     }
 
     private void insert(Auto auto) {
@@ -180,6 +205,7 @@ public class BazaDanych {
 
     private void displayCar(String stringIndex) {
         int index = Integer.parseInt(stringIndex);
+        System.out.println(lista.get(index));
     }
 
     private void displayMake(String marka) {
