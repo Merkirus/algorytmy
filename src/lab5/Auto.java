@@ -1,6 +1,8 @@
 package lab5;
 
-public class Auto {
+import java.io.Serializable;
+
+public class Auto implements Serializable {
 
     private int nr_silnika;
     private String marka;
@@ -96,14 +98,14 @@ public class Auto {
     @Override
     public String toString() {
         return "Auto{" +
-                "nr_silnika=" + nr_silnika +
-                ", marka='" + marka + '\'' +
-                ", typ='" + typ + '\'' +
+                "nr_silnika=" + String.format("%-4d", nr_silnika) +
+                ", marka=" + String.format("%-10s", marka) +
+                ", typ=" + String.format("%-10s", typ) +
                 ", data_produkcji=" + data_produkcji +
-                ", cena=" + cena +
-                ", kolor='" + kolor + '\'' +
-                ", skladowanie=" + skladowanie +
-                ", przecena=" + przecena +
+                ", cena=" + String.format("%-10.2f", cena) +
+                ", kolor='" + String.format("%-12s", kolor) +
+                ", skladowanie=" + String.format("%-2d", skladowanie) +
+                ", przecena=" + String.format("%-10.2f", przecena) +
                 '}';
     }
 }

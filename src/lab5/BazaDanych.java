@@ -1,9 +1,12 @@
 package lab5;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Scanner;
+import lab4.ArrayStack;
+import lab4.EmptyStackException;
+import lab4.FullStackException;
+import lab4.IStack;
+
+import java.io.*;
+import java.util.*;
 
 public class BazaDanych {
 
@@ -29,8 +32,8 @@ public class BazaDanych {
 
     private ArrayList<String> bazaMarek;
     private ArrayList<String> bazaRocznikow;
-
     private L2KCzS<Auto> lista;
+
     private boolean isRunning;
 
     public BazaDanych() {
@@ -40,14 +43,14 @@ public class BazaDanych {
         this.isRunning = true;
     }
 
-    public void run() {
+    public void run() throws FullStackException, EmptyStackException {
         makeDatabase();
         while (isRunning) {
             helpRun();
         }
     }
 
-    private void helpRun() {
+    private void helpRun() throws FullStackException, EmptyStackException {
         System.out.println("Proszę wybrać operację: ");
         System.out.println("1. Wyświetl bazę danych");
         System.out.println("2. Wyświetl dany samochód");
@@ -58,7 +61,8 @@ public class BazaDanych {
         System.out.println("7. Wyświetl dany rocznik");
         System.out.println("8. Wyświetl samochody do podanej ceny");
         System.out.println("9. Zapisz i wyjdź");
-        System.out.println("10. SYMULACJA PARKINGU");
+        System.out.println("10. Odczytaj z pliku");
+        System.out.println("11. SYMULACJA PARKINGU");
 
         Scanner sc = new Scanner(System.in);
 
@@ -102,31 +106,31 @@ public class BazaDanych {
                 System.out.println("Proszę podać numer indeksu samochodu");
                 int index = Integer.parseInt(sc.nextLine());
                 System.out.println("Nr silnika (Enter - bez zmian)");
-                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setNr_silnika(Integer.parseInt(temp));
                 }
                 System.out.println("Marka (Enter - bez zmian)");
-                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setMarka(temp);
                 }
                 System.out.println("Typ (Enter - bez zmian)");
-                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setTyp(temp);
                 }
                 System.out.println("Data produkcji (Enter - bez zmian)");
-                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setData_produkcji(Integer.parseInt(temp));
                 }
                 System.out.println("Cena (Enter - bez zmian)");
-                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setCena(Double.parseDouble(temp));
                 }
                 System.out.println("Kolor (Enter - bez zmian)");
-                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setKolor(temp);
                 }
                 System.out.println("Czas składowania (Enter - bez zmian)");
-                if (!Objects.equals(temp = sc.nextLine(), "\n")) {
+                if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setSkladowanie(Integer.parseInt(temp));
                 }
             }
@@ -151,9 +155,15 @@ public class BazaDanych {
             }
             case "9" -> {
                 isRunning = false;
+                save();
             }
             case "10" -> {
-                simulation();
+                load();
+            }
+            case "11" -> {
+                System.out.println("Proszę wybrać kupowane auto");
+                temp = sc.nextLine();
+                simulation(temp);
             }
         }
     }
@@ -173,7 +183,7 @@ public class BazaDanych {
                     rand.nextInt(25)
             );
             insert(auto);
-        } while (rand.nextInt(1000) != 1);
+        } while (rand.nextInt(10) != 1);
     }
 
     private void remove(String stringIndex) {
@@ -182,7 +192,17 @@ public class BazaDanych {
     }
 
     private void insert(Auto auto) {
-        int wartosc = auto.getNr_silnika();
+
+        if (!bazaMarek.contains(auto.getMarka())) {
+            bazaMarek.add(auto.getMarka());
+            Collections.sort(bazaMarek);
+        }
+        if (!bazaRocznikow.contains(Integer.toString(auto.getData_produkcji()))) {
+            bazaRocznikow.add(Integer.toString(auto.getData_produkcji()));
+            Collections.sort(bazaRocznikow);
+        }
+
+        int nr_silnika = auto.getNr_silnika();
 
         if (lista.isEmpty()) {
             lista.add(auto);
@@ -191,15 +211,15 @@ public class BazaDanych {
 
         int index = -1;
 
-        for (int i = lista.size() - 1; (i >= 0 && wartosc < lista.get(i).getNr_silnika()); i--) index = i;
+        for (int i = lista.size() - 1; (i >= 0 && nr_silnika < lista.get(i).getNr_silnika()); i--) index = i;
 
         if (index!=-1) lista.add(index, auto);
         else lista.add(auto);
     }
 
     private void display() {
-        for (Auto auto : lista) {
-            System.out.println(auto);
+        for (int i=0; i < lista.size(); i++) {
+            System.out.println(lista.get(i) + " Index: " + i);
         }
     }
 
@@ -209,18 +229,79 @@ public class BazaDanych {
     }
 
     private void displayMake(String marka) {
-
+        for (Auto auto : lista) {
+            if (auto.getMarka().equals(marka)) System.out.println(auto);
+        }
     }
 
     private void displayDate(String stringDate) {
         int date = Integer.parseInt(stringDate);
+        for (Auto auto : lista) {
+            if (auto.getData_produkcji() == date) System.out.println(auto);
+        }
     }
 
     private void displayPrice(String stringPrice) {
         double price = Double.parseDouble(stringPrice);
+        for (Auto auto : lista) {
+            if (auto.getCena() <= price) System.out.println(auto);
+        }
     }
 
-    private void simulation() {
+    private void save() {
+        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/lab5/BazaDanych.ser"))) {
 
+            os.writeInt(lista.size());
+            for (Auto auto : lista) os.writeObject(auto);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void load() {
+
+        File plik = new File("src/lab5/BazaDanych.ser");
+
+        if (plik.length() != 0L) {
+            try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(plik))) {
+
+                int dlugosc = is.readInt();
+                this.lista.clear();
+                this.bazaMarek.clear();
+                this.bazaRocznikow.clear();
+                for (int i=0; i < dlugosc; i++) {
+                    Auto auto = (Auto) is.readObject();
+                    if (!bazaMarek.contains(auto.getMarka())) bazaMarek.add(auto.getMarka());
+                    if (!bazaRocznikow.contains(Integer.toString(auto.getData_produkcji())))
+                        bazaRocznikow.add(Integer.toString(auto.getData_produkcji()));
+                    this.lista.add(auto);
+                }
+
+                Collections.sort(bazaMarek);
+                Collections.sort(bazaRocznikow);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void simulation(String stringIndex) throws FullStackException, EmptyStackException {
+        int index = Integer.parseInt(stringIndex);
+        IStack<Auto> parking = new LinkedListStack<>();
+        System.out.printf("Kupowane auto\n%s\n", lista.get(index));
+        System.out.println("Muszą wyjechać kolejno");
+        for (int i=lista.size()-1;i >= index+1; i--) {
+            Auto auto = lista.get(i);
+            System.out.println(auto);
+            parking.push(auto);
+        }
+        System.out.println("Następnie kolejno wjeżdżają");
+        while (!parking.isEmpty()) {
+            Auto auto = parking.pop();
+            System.out.println(auto);
+        }
+        lista.remove(index);
     }
 }

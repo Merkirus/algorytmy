@@ -1,6 +1,6 @@
 package lab5;
 
-import java.util.AbstractList;
+import java.io.Serializable;
 import java.util.Iterator;
 
 public class L2KCzS<E> implements Iterable<E> {
@@ -93,7 +93,7 @@ public class L2KCzS<E> implements Iterable<E> {
 
     public boolean add(int index, E value) {
         if (index == 0) sentinel.insertAfter(new Element(value));
-        else getElement(index).insertAfter(new Element(value));
+        else getElement(index-1).insertAfter(new Element(value));
         return true;
     }
 

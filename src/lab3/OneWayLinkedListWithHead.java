@@ -79,6 +79,20 @@ public class OneWayLinkedListWithHead<E> implements Iterable<E> {
         return true;
     }
 
+    public E remove(int index) {
+        if (index < 0 || head == null) throw new IndexOutOfBoundsException();
+        if (index == 0) {
+            E result = head.getValue();
+            head = head.getNext();
+            return result;
+        }
+        Element curr = getElement(index-1);
+        if (curr.getNext() == null) throw new IndexOutOfBoundsException();
+        E result = curr.getNext().getValue();
+        curr.setNext(curr.getNext().getNext());
+        return result;
+    }
+
     public boolean remove(E wartosc) {
         if (head == null) return false;
         if (head.getValue().equals(wartosc)) {
