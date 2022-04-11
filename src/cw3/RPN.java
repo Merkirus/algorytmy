@@ -14,7 +14,7 @@ public class RPN {
         this.result = 0;
     }
 
-    public void oblicz() throws EmptyQueueException, EmptyStackException, FullStackException {
+    public void oblicz() throws Exception {
         while (!queue.isEmpty()) {
             Object newValue = queue.dequeue();
             String stringNewValue = newValue.toString();

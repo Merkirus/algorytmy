@@ -101,13 +101,16 @@ public class BazaDanych {
                 System.out.println("Proszę podać numer indeksu samochodu");
                 temp = sc.nextLine();
                 remove(temp);
+                System.out.println("Auto zostało usunięte z bazy danych");
             }
             case "5" -> {
                 System.out.println("Proszę podać numer indeksu samochodu");
                 int index = Integer.parseInt(sc.nextLine());
+                boolean silnikChanged = false;
                 System.out.println("Nr silnika (Enter - bez zmian)");
                 if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setNr_silnika(Integer.parseInt(temp));
+                    silnikChanged = true;
                 }
                 System.out.println("Marka (Enter - bez zmian)");
                 if (!Objects.equals(temp = sc.nextLine(), "")) {
@@ -132,6 +135,11 @@ public class BazaDanych {
                 System.out.println("Czas składowania (Enter - bez zmian)");
                 if (!Objects.equals(temp = sc.nextLine(), "")) {
                     lista.get(index).setSkladowanie(Integer.parseInt(temp));
+                }
+                if (silnikChanged) {
+                    Auto auto = lista.get(index);
+                    lista.remove(index);
+                    insert(auto);
                 }
             }
             case "6" -> {

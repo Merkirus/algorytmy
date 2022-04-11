@@ -2,15 +2,15 @@ package cw3;
 
 public class Flawiusz {
 
-    private QueueStack<Integer> queue;
+    private IQueue<Integer> queue;
     private int k;
 
     public Flawiusz(int k) {
-        this.queue = new QueueStack<>();
+        this.queue = new ArrayQueue<>();
         this.k = k;
     }
 
-    public void makeQueue(int n) throws EmptyStackException, FullStackException {
+    public void makeQueue(int n) throws EmptyStackException, FullStackException, FullQueueException {
         for (int i=0; i < n; i++) {
             queue.enqueue(i+1);
         }
@@ -18,9 +18,18 @@ public class Flawiusz {
 
     //TODO Gdy element jest bezpieczny usuwamy go z kolejki i wstawiamy na koniec
     //Inaczej usuwamy bez wstawiania
-    public int solve() {
-        
-        return 0;
+    public int solve() throws Exception {
+        int temp = 1;
+        while (queue.size() != 1) {
+            if (temp % k == 0) {
+                queue.dequeue();
+            } else {
+                int element = queue.dequeue();
+                queue.enqueue(element);
+            }
+            temp++;
+        }
+        return queue.dequeue();
     }
 
     // https://www.youtube.com/watch?v=fZ3p2Iw-O2I

@@ -89,6 +89,15 @@ public class Auto implements Serializable {
 
     public void setSkladowanie(int skladowanie) {
         this.skladowanie = skladowanie;
+        if  (skladowanie >= 6 && skladowanie < 15) {
+            this.przecena = (0.06)*cena;
+            this.cena = cena - przecena;
+        } else if (skladowanie >= 15) {
+            this.przecena = (0.15)*cena;
+            this.cena = cena - przecena;
+        } else {
+            this.przecena = 0;
+        }
     }
 
     public double getPrzecena() {
