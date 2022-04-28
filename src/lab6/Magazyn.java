@@ -18,7 +18,10 @@ public class Magazyn {
     private double totalPrice = 0;
     private boolean isRunning = true;
 
-    public Magazyn() throws EmptyStackException, FullQueueException, FullStackException {
+    private String nazwa;
+
+    public Magazyn(String nazwa) throws EmptyStackException, FullQueueException, FullStackException {
+        this.nazwa = nazwa;
         this.queue = new HeadAndTailQueue<>();
         Random rand = new Random();
         while (rand.nextInt(10) != 1) {
@@ -68,17 +71,15 @@ public class Magazyn {
     }
 
     private void wyswietl() throws EmptyStackException, EmptyQueueException, FullQueueException, FullStackException {
-        ArrayList<Klient> arr = new ArrayList<>();
-        while (!queue.isEmpty()) {
-            arr.add(queue.dequeue());
-        }
-        for (Klient klient : arr) {
-            queue.enqueue(klient);
+        int size = queue.size();
+        for (int i = 0; i < size; i++) {
+            Klient klient = queue.dequeue();
             System.out.println(klient);
+            queue.enqueue(klient);
         }
     }
 
-    private void obsluga() throws Exception {
+    public void obsluga() throws Exception {
         Klient klient = queue.dequeue();
         double kwota = 0;
         while (!klient.getQueue().isEmpty()) {
@@ -88,4 +89,15 @@ public class Magazyn {
         totalPrice += kwota;
     }
 
+    public String getNazwa() {
+        return nazwa;
+    }
+
+    public IQueue<Klient> getQueue() {
+        return queue;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
 }

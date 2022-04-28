@@ -2,7 +2,7 @@ package lab6;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Magazyn magazyn = new Magazyn();
+        Firma magazyn = new Firma(5);
         magazyn.run();
     }
 }
