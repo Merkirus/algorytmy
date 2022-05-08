@@ -97,8 +97,10 @@ public class L2KCzS<E> implements Iterable<E> {
         return true;
     }
 
-    public void remove(int index) {
+    public E remove(int index) {
+        E value = getElement(index).getValue();
         getElement(index).remove();
+        return value;
     }
 
     public int size() {
