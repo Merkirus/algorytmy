@@ -145,6 +145,18 @@ public class BST<T> {
         return liczbaWezlow(node.left) + liczbaWezlow(node.right) + 1;
     }
 
+    public int libczaLisci() {
+        return liczbaLisci(root);
+    }
+
+    private int liczbaLisci(Node node) {
+        if (node == null)
+            return 0;
+        if (node.left == null && node.right == null)
+            return 1;
+        return liczbaLisci(node.left) + liczbaLisci(node.right);
+    }
+
     public int liczbaParzystychKluczy() {
         return liczbaParzystychKluczy(root);
     }

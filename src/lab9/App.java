@@ -25,5 +25,6 @@ public class App {
         ObjectToStringExecutor executor = new ObjectToStringExecutor();
         bst.postOrderWalk(executor);
         System.out.println(executor.getResult());
+        System.out.println(bst.libczaLisci());
     }
 }
