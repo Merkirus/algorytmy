@@ -2,6 +2,8 @@ package cw5;
 
 import cw3.ArrayQueue;
 import cw3.EmptyQueueException;
+import cw3.EmptyStackException;
+import cw3.IQueue;
 
 import java.util.*;
 
@@ -385,5 +387,62 @@ public class BST<T> {
             postOrderWalk(node.right, executor);
             executor.execute(node.value);
         }
+    }
+
+    public void makeBST(String post, String in) {
+        ArrayList<String> postArr = new ArrayList<>();
+        String[] temp = post.split(", ");
+        Collections.addAll(postArr, temp);
+        ArrayList<String> inArr = new ArrayList<>();
+        String[] temp2 = in.split("(?<=\\G.{1})");
+        String prev = "";
+        for (int i = 0; i < temp2.length; i++) {
+            if (!temp2[i].equals("*") && !temp2[i].equals("/") && !temp2[i].equals("+") && !temp2[i].equals("-")) {
+                if (i != 0) {
+                    if (!prev.equals("*") && !prev.equals("/") && !prev.equals("+") && !prev.equals("-")) {
+                        temp2[i-1] += temp2[i];
+                        for (int j = i; j < temp2.length-1; j++)
+                            temp2[j] = temp2[j+1];
+                        String[] add = new String[temp2.length-1];
+                        for (int j = 0; j < add.length; j++)
+                            add[j] = temp2[j];
+                        temp2 = add;
+                        i--;
+                    }
+                }
+            }
+            prev = temp2[i];
+        }
+        Collections.addAll(inArr, temp2);
+        int[] index = {postArr.size()-1};
+        root = makePostOrder((ArrayList<T>) postArr, (ArrayList<T>) inArr, 0, inArr.size()-1, index);
+    }
+
+    private Node makePostOrder(ArrayList<T> postArr, ArrayList<T> inArr, int inStart, int inEnd, int[] postIndex) {
+
+        if (inStart > inEnd) return null;
+
+        Node node = new Node(postArr.get(postIndex[0]));
+
+        postIndex[0] = postIndex[0] - 1;
+
+        if (inStart == inEnd)
+            return node;
+
+        int index = seek(inArr, inStart, inEnd, node.value);
+
+        node.right = makePostOrder(postArr, inArr, index+1, inEnd, postIndex);
+        node.left = makePostOrder(postArr, inArr, inStart, index-1, postIndex);
+
+        return node;
+    }
+
+    private int seek(ArrayList<T> arrayList, int inStart, int inEnd, T value) {
+        int i;
+        for (i = inStart; i <= inEnd; i++) {
+            if (((String)arrayList.get(i)).equals((String)value))
+                break;
+        }
+        return i;
     }
 }

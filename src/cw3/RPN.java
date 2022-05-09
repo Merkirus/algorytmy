@@ -49,6 +49,22 @@ public class RPN {
         }
     }
 
+    public String getRpnVersion() {
+        return rpnVersion;
+    }
+
+    public double getResult() {
+        return result;
+    }
+
+    public IQueue<Object> getQueue() {
+        return queue;
+    }
+
+    public IStack<Object> getStack() {
+        return stack;
+    }
+
     public void wyswietl() throws EmptyStackException, EmptyQueueException {
         System.out.println(rpnVersion);
     }

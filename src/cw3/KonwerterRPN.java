@@ -5,7 +5,7 @@ import java.io.StreamTokenizer;
 import java.io.StringReader;
 
 public class KonwerterRPN {
-        private static class Operator {
+        public static class Operator {
             final char _ch;
 
             public Operator(char ch) {
