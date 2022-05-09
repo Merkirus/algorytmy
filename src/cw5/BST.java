@@ -409,9 +409,17 @@ public class BST<T> {
         String[] temp2 = in.split("(?<=\\G.{1})");
         String prev = "";
         for (int i = 0; i < temp2.length; i++) {
-            if (!temp2[i].equals("*") && !temp2[i].equals("/") && !temp2[i].equals("+") && !temp2[i].equals("-")) {
+            if (!temp2[i].equals("*")
+                    && !temp2[i].equals("/")
+                    && !temp2[i].equals("+")
+                    && !temp2[i].equals("-")
+                    && !temp2[i].equals("%")) {
                 if (i != 0) {
-                    if (!prev.equals("*") && !prev.equals("/") && !prev.equals("+") && !prev.equals("-")) {
+                    if (!prev.equals("*")
+                            && !prev.equals("/")
+                            && !prev.equals("+")
+                            && !prev.equals("-")
+                            && !prev.equals("%")) {
                         temp2[i-1] += temp2[i];
                         for (int j = i; j < temp2.length-1; j++)
                             temp2[j] = temp2[j+1];

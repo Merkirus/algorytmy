@@ -18,7 +18,11 @@ public class RPN {
         while (!queue.isEmpty()) {
             Object newValue = queue.dequeue();
             String stringNewValue = newValue.toString();
-            if (!stringNewValue.equals("*") && !stringNewValue.equals("/") && !stringNewValue.equals("+") && !stringNewValue.equals("-")) {
+            if (!stringNewValue.equals("*")
+                    && !stringNewValue.equals("/")
+                    && !stringNewValue.equals("+")
+                    && !stringNewValue.equals("-")
+                    && !stringNewValue.equals("%")) {
                 stack.push(newValue);
                 continue;
             }
@@ -35,6 +39,11 @@ public class RPN {
             case "/" -> {
                 double value = (double)stack.pop();
                 result = (double)stack.pop() / value;
+                stack.push(result);
+            }
+            case "%" -> {
+                double value = (double)stack.pop();
+                result = (double)stack.pop() % value;
                 stack.push(result);
             }
             case "+" -> {

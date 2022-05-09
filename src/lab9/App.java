@@ -9,7 +9,7 @@ import cw5.IntegerToStringExecutor;
 import java.util.Comparator;
 
 public class App {
-    public static void main(String[] args) throws EmptyStackException, EmptyQueueException, FullStackException {
+    public static void main(String[] args) throws Exception {
         String wyrazenie = "12.0+(3.0*2.0+6.0)";
         BSTRPN bstrpn = new BSTRPN(wyrazenie);
         wyrazenie = wyrazenie.replace("(", "");
@@ -25,6 +25,6 @@ public class App {
         ObjectToStringExecutor executor = new ObjectToStringExecutor();
         bst.postOrderWalk(executor);
         System.out.println(executor.getResult());
-        System.out.println(bst.libczaLisci());
+        System.out.println(bstrpn.getWynik());
     }
 }

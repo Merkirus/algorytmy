@@ -13,7 +13,7 @@ public class KonwerterRPN {
             }
 
             int getPriority() {
-                if (_ch == '*' || _ch == '/')
+                if (_ch == '*' || _ch == '/' || _ch == '%')
                     return 2;
                 if (_ch == '+' || _ch == '-')
                     return 1;
