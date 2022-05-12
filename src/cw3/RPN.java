@@ -14,6 +14,10 @@ public class RPN {
         this.result = 0;
     }
 
+    public void setWyrazenie(String wyrazenie) {
+        this.rpnVersion = wyrazenie;
+    }
+
     public void oblicz() throws Exception {
         while (!queue.isEmpty()) {
             Object newValue = queue.dequeue();

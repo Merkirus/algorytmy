@@ -1,10 +1,5 @@
 package cw5;
 
-import cw3.ArrayQueue;
-import cw3.EmptyQueueException;
-import cw3.EmptyStackException;
-import cw3.IQueue;
-
 import java.util.*;
 
 public class BST<T> {
@@ -165,8 +160,7 @@ public class BST<T> {
         if (node == null) return 0;
         if (((int) node.value) % 2 != 0)
             return liczbaParzystychKluczy(node.left) + liczbaParzystychKluczy(node.right);
-        else
-            return liczbaParzystychKluczy(node.left) + liczbaParzystychKluczy(node.right) + 1;
+        return liczbaParzystychKluczy(node.left) + liczbaParzystychKluczy(node.right) + 1;
     }
 
     public int liczbaWezlowZJednymDzieckiem() {
@@ -189,10 +183,7 @@ public class BST<T> {
         if (node == null) return curr_height-1;
         int left = wysokosc(node.left, curr_height+1);
         int right = wysokosc(node.right, curr_height+1);
-        if (left >= right)
-            return left;
-        else
-            return right;
+        return Math.max(left, right);
     }
 
     public int liczbaWezlowZJednymBratem() {
@@ -279,90 +270,16 @@ public class BST<T> {
         return finalArray;
     }
 
+    private ArrayList<ArrayList<Node>> getPoziomy() {
+        return pomocPoziomy2(root);
+    }
+
     private ArrayList<ArrayList<Node>> pomocPoziomy2(Node node) {
         ArrayList<ArrayList<Node>> container = new ArrayList<>();
         for (int i = 0; i < wysokosc()+1; i++)
             container.add(new ArrayList<Node>());
         wysokoscDlaBraci(root, 0, container);
         return container;
-    }
-
-//    public void printPoziomy() {
-//        ArrayList<ArrayList<Node>> arrayList = getPoziomy();
-//        int _root = (int)arrayList.get(0).get(0).value;
-//        System.out.printf("%100d", _root);
-//        arrayList.remove(0);
-//        int step = 30;
-//        int prevStep = step;
-//        int counter = -1;
-//        for (ArrayList<Node> nodes : arrayList) {
-//            System.out.println();
-//            int count = nodes.size();
-//            int left = 0;
-//            int right = 0;
-//            int single = 0;
-//
-//
-//            if (count == 2) {
-//                left = Math.min((int) nodes.get(0).value, (int) nodes.get(1).value);
-//                right = Math.max((int) nodes.get(0).value, (int) nodes.get(1).value);
-//            } else {
-//                single = (int)nodes.get(0).value;
-//            }
-//
-//            int adjust = 2*step;
-//
-//            if (counter == -1) {
-//                if (count == 2) {
-//                    System.out.printf("%"+(100-step)+"d%"+(adjust)+"d", left,right);
-//                } else {
-//                    if (single < _root)
-//                        System.out.printf("%"+(100-step)+"d%"+(adjust)+"s", single,"");
-//                    else
-//                        System.out.printf("%"+(100-step)+"s%"+(adjust)+"d", "",single);
-//                }
-//            } else {
-//                if (count == 2) {
-//                    if (arrayList.get(counter).size() >= 2) {
-//                        if  (left < _root) {
-//
-//                        }
-//                    } else {
-//
-//                    }
-//                } else {
-//                    if (arrayList.get(counter).size() >= 2) {
-//                        if (single < _root) {
-//                            if (single < (int)arrayList.get(counter).get(0).value) {
-//                                System.out.printf("%"+(100-step-5)+"d%"+(adjust)+"s", single,"");
-//                            } else {
-//                                System.out.printf("%"+(100-step+5)+"d%"+(adjust)+"s", single,"");
-//                            }
-//                        } else {
-//                            if (single < (int)arrayList.get(counter).get(1).value) {
-//                                System.out.printf("%"+(100-step)+"s%"+(adjust-5)+"d", "",single);
-//                            } else {
-//                                System.out.printf("%"+(100-step)+"s%"+(adjust+5)+"d", "",single);
-//                            }
-//                        }
-//                    } else {
-//                        if (single < (int)arrayList.get(counter).get(0).value) {
-//                            System.out.printf("%"+(100-step)+"d%"+(adjust)+"s", single,"");
-//                        } else {
-//                            System.out.printf("%"+(100-step)+"s%"+(adjust)+"d", "",single);
-//                        }
-//                    }
-//                }
-//            }
-//
-//            prevStep = step;
-//            step -= 5;
-//            counter++;
-//        }
-//    }
-
-    private ArrayList<ArrayList<Node>> getPoziomy() {
-        return pomocPoziomy2(root);
     }
 
     public <R> void inOrderWalk(IExecutor<T,R> executor) {

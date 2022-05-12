@@ -38,12 +38,14 @@ public class zad2 {
         int randomIndex0 = random.nextInt(i,j);
         int randomIndex1 = random.nextInt(i,j);
         int randomIndex2 = random.nextInt(i,j);
+        /*TODO XD*/
         HashMap<Integer, Integer> map = new HashMap<>();
         map.put(arr[randomIndex0], randomIndex0);
         map.put(arr[randomIndex1], randomIndex1);
         map.put(arr[randomIndex2], randomIndex2);
         int[] randomPivots = {arr[randomIndex0], arr[randomIndex1], arr[randomIndex2]};
         BubbleSort.sort(randomPivots);
+        /*KONIEC XD*/
         swap(arr, i, map.get(randomPivots[1]));
         int pivot = arr[i];
         while (true) {
