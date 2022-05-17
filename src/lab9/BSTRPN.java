@@ -40,6 +40,10 @@ public class BSTRPN {
         wynik = rpn.getResult();
     }
 
+    public void przejdzWszerz() throws EmptyQueueException, FullQueueException {
+        bst.przejdzWszerz();
+    }
+
     public double getWynik() {
         return wynik;
     }

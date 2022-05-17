@@ -1,5 +1,9 @@
 package cw5;
 
+import cw3.ArrayQueue;
+import cw3.EmptyQueueException;
+import cw3.FullQueueException;
+
 import java.util.*;
 
 public class BST<T> {
@@ -280,6 +284,29 @@ public class BST<T> {
             container.add(new ArrayList<Node>());
         wysokoscDlaBraci(root, 0, container);
         return container;
+    }
+
+    public void przejdzWszerz() throws FullQueueException, EmptyQueueException {
+        przejdzWszerz(root);
+    }
+
+    private void przejdzWszerz(Node node) throws FullQueueException, EmptyQueueException {
+        ArrayQueue<Node> queue = new ArrayQueue<>();
+        queue.enqueue(node);
+        System.out.println("Przechodzenie wszerz");
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i=0; i < size; i++) {
+                Node current = queue.dequeue();
+                System.out.print(current.value.toString() + " | ");
+                if (current.left != null)
+                    queue.enqueue(current.left);
+                if (current.right != null)
+                    queue.enqueue(current.right);
+            }
+            System.out.println();
+        }
+        System.out.println("Przechodzenie wszerz - koniec");
     }
 
     public <R> void inOrderWalk(IExecutor<T,R> executor) {

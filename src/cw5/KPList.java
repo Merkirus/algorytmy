@@ -61,6 +61,7 @@ public class KPList<T extends Comparable<? super T>> implements IQueue<T> {
         return list.get(getIndexOfLargestElement());
     }
 
+    /*Changed comparator thus smallest element is returned*/
     private int getIndexOfLargestElement() {
         if (list.isEmpty())
             return -1;
@@ -71,7 +72,7 @@ public class KPList<T extends Comparable<? super T>> implements IQueue<T> {
         T elem = null;
         while (iter.hasNext()) {
             counter++;
-            if (comparator.compare(elem = iter.next(), value) > 0) {
+            if (comparator.compare(elem = iter.next(), value) < 0) {
                 maxPos = counter;
                 value = elem;
             }
