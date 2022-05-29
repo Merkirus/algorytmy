@@ -9,6 +9,6 @@ public class App {
         redBlackTree.readAndBuild();
         BTreePrinter.printNode(redBlackTree.getRoot());
         redBlackTree.przejdzWszerz();
-        redBlackTree.writeToFile();
+        // redBlackTree.writeToFile();
     }
 }
