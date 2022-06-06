@@ -10,11 +10,14 @@ public class App {
         graf.dodajSasiedztwo(2,4, 10);
         graf.dodajSasiedztwo(3,2, 20);
         graf.dodajSasiedztwo(3,4, 60);
-//        graf.wyswietl();
-//        Dijsktra dijsktra = new Dijsktra(graf);
-//        dijsktra.find(0);
-//        dijsktra.wyswietlDrogi();
-//        dijsktra.wyswietlDrogiSlownie();
-        graf.DFS();
+        // graf.wyswietl();
+        Dijsktra dijsktra = new Dijsktra(graf);
+        dijsktra.find(0);
+        dijsktra.wyswietlDrogi();
+        dijsktra.wyswietlDrogiSlownie();
+        Prim prim = new Prim(graf);
+        prim.find(0);
+        prim.wyswietlDrogiSlownie();
+        // graf.DFS();
     }
 }
