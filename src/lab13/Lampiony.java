@@ -13,8 +13,14 @@ public class Lampiony {
 
     public Lampiony() {
         run2();
-        System.out.println("Najkrótsza droga wynosi: ");
-        System.out.print(Kruskal.najkrotszaDroga(macierz));
+        if (lampiony >= 1 && lampiony <= 20 && polaczenia >= 0 && polaczenia <= 190)
+        {
+            System.out.println("Najkrótsza droga wynosi: ");
+            System.out.print(Kruskal.najkrotszaDroga(macierz));
+        }
+        else
+            System.out.print("Złe dane wejściowe");
+
     }
 
     private void run() {
